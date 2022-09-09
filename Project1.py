@@ -16,10 +16,12 @@ from io import StringIO
 
 "Las Angeles Data"
 la = req.get("http://berkeleyearth.lbl.gov/air-quality/maps/cities/United_States/California/Los_Angeles.txt")
-la_df= pd.read_csv(la.text)
+with open('/tmp/la.txt','w') as fp:
+    fp.write(la.text)
+la_df= pd.read_csv('/tmp/la.txt',skiprows=9,header='infer',sep='\t')
 la_df.columns = ["Year", "Month", "Day", "UTC Hour", "PM2.5", "PM10_mask", "Retrospective"]
 print (la_df)
-
+print(la_df.head())
 
 
 
